@@ -9,7 +9,7 @@ const Wishlist = () => {
   const {wishlist} = useContext(ProductContext);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className='bg-white'>
         <View className='m-4'>
             <View className='flex flex-row items-center'>
                <Ionicons name="arrow-back" size={24} color="black" 

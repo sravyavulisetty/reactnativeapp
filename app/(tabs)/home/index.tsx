@@ -75,6 +75,8 @@ const Home = () => {
           <FlatList
             data={topRatedProducts}
             keyExtractor={(item) => item.id.toString()}
+            scrollEnabled={false}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => 
             <Product 
                     handlePress={async () => router.push({ pathname: '/(tabs)/home/productpage', params: { product: JSON.stringify(item) } })}

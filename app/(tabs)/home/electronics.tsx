@@ -39,10 +39,6 @@ const Electronics: React.FC = () => {
       .then(data => setData(data));
   }, []);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const renderDropdownItem = (item: DropdownItem) => (
     <View style={styles.dropdownItem}>
       <Text>{item.label}</Text>
