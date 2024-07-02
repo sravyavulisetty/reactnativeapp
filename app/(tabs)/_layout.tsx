@@ -2,10 +2,14 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
 import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { ProductProvider } from '../context/ProductContext';
 
 const TabLayout = () => {
   return (
     <Tabs screenOptions={{
+        headerShown: false,
         tabBarShowLabel: false,
         tabBarActiveTintColor: '#e5b724'
     }}>
@@ -17,6 +21,23 @@ const TabLayout = () => {
         <Text>Home</Text>
         </>}}
         >
+        </Tabs.Screen>
+        <Tabs.Screen 
+        name="wishlist" 
+        options={{title:"Wishlist", tabBarIcon: () => 
+        <>
+        <FontAwesome5 name="heart" size={24} color="#245d44" />
+        <Text>Wishlist</Text>
+        </>}}
+        >
+        </Tabs.Screen>
+        <Tabs.Screen
+        name="categories"
+        options={{title: "categories", tabBarIcon: () => 
+        <>
+        <MaterialIcons name="category" size={24} color="#245d44" />
+        <Text>Categories</Text>
+        </>}}>
         </Tabs.Screen>
         <Tabs.Screen
         name="profile"

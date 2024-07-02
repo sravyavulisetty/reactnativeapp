@@ -3,18 +3,20 @@ import React from 'react'
 
 interface customButtonProps {
   title: string,
-  handlePress: () => {},
+  handlePress: () => void,
   containerStyles: string,
-  textStyles: string
+  textStyles: string,
+  children: any
 }
 
-const CustomButton = ({title, handlePress, containerStyles, textStyles} : customButtonProps) => {
+const CustomButton = ({children, handlePress, containerStyles, textStyles} : customButtonProps) => {
   return (
     <TouchableOpacity
     onPress={handlePress} 
     activeOpacity={0.7}
-    className={`p-2 ${containerStyles} justify-center items-center`}>
-      <Text className={`font-semibold text-base ${textStyles}`}>{title}</Text>
+    className={`p-2 ${containerStyles} cursor-pointer`}>
+      {/* <Text className={`font-semibold text-base ${textStyles}`}>{title}</Text> */}
+      {children}
     </TouchableOpacity>
   )
 }

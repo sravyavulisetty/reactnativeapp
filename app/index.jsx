@@ -1,5 +1,6 @@
-import { ScrollView, Text, View, Image, Button, Alert } from "react-native";
+import { ScrollView, Text, View, Image } from "react-native";
 import { Link } from "expo-router";
+import { useEffect } from "react";
 import { Redirect, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import CustomButton from "@/components/CustomButton";
@@ -48,6 +49,7 @@ export default function Index() {
     Poppins_900Black_Italic,
   });
 
+
   return (
     <SafeAreaView className="bg-[#e5b724]" style= {{fontFamily: 'Poppins_400Regular'}}>
       <ScrollView className="h-screen w-screen flex flex-col m-2">
@@ -59,11 +61,9 @@ export default function Index() {
         <View className="flex-1 items-center justify-center mt-10">
           <Image source={require('../assets/images/home.jpg')} resizeMode='contain' className="h-[400px] w-auto"></Image>
         </View>
-        <CustomButton title="Get Started" containerStyles="bg-black w-52 p-2 mt-8 ml-20" textStyles="text-white"></CustomButton>
-        {/* <View className="bg-black mt-6 p-0.5 w-72 ml-10 text-white"> */}
-          {/* <Link href='/home' style={{color: 'black'}} className="p-1 text-center font-semibold text-lg mt-2">Get Started</Link> */}
-          {/* <Button title="Get Started" color='white' onPress={()=> router.push("/home")}></Button> */}
-        {/* </View> */}
+        <CustomButton title="" containerStyles="bg-black w-52 p-1 mt-8 ml-20" textStyles="text-white" handlePress={()=>router.push('/sign-up')}>
+          <Text className="text-white text-center text-base font-semibold">Get Started</Text>
+        </CustomButton>
       </ScrollView>
       <StatusBar backgroundColor="black" style="light" />  
     </SafeAreaView>
