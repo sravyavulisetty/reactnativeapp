@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, Image } from "react-native";
+import { ScrollView, Text, View, Image, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import { useEffect } from "react";
 import { Redirect, router } from "expo-router";
@@ -51,19 +51,23 @@ export default function Index() {
 
 
   return (
-    <SafeAreaView className="bg-[#e5b724]" style= {{fontFamily: 'Poppins_400Regular'}}>
-      <ScrollView className="h-screen w-screen flex flex-col m-2">
+    <SafeAreaView className="bg-[#e5b724] flex-1" style= {{fontFamily: 'Poppins_400Regular'}}>
+      <ScrollView className="w-screen h-screen flex">
         <View className="flex flex-row items-center justify-between px-3">
           <Image source={require('../assets/images/gift.png')} resizeMode="contain" className="h-8 w-8 m-2"></Image>
-          <CustomButton title="Log In" textStyles="text-black"/>
+          <CustomButton handlePress={()=>router.push('/(tabs)/login')}>
+            <Text className="text-base font-semibold">Log In</Text>
+          </CustomButton>
         </View>
         <Text className="text-4xl font-bold mt-10 px-3" style= {{fontFamily: 'Poppins_400Regular'}} >SHOP AT YOUR COMFORT</Text>
         <View className="flex-1 items-center justify-center mt-10">
           <Image source={require('../assets/images/home.jpg')} resizeMode='contain' className="h-[400px] w-auto"></Image>
         </View>
-        <CustomButton title="" containerStyles="bg-black w-52 p-1 mt-8 ml-20" textStyles="text-white" handlePress={()=>router.push('/sign-up')}>
-          <Text className="text-white text-center text-base font-semibold">Get Started</Text>
-        </CustomButton>
+        <View className="w-screen flex items-center">
+          <CustomButton title="" containerStyles="bg-black px-10 mt-8" textStyles="text-white" handlePress={()=>router.push('/sign-up')}>
+            <Text className="text-white text-center text-base font-semibold">Get Started</Text>
+          </CustomButton>
+        </View>
       </ScrollView>
       <StatusBar backgroundColor="black" style="light" />  
     </SafeAreaView>

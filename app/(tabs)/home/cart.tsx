@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { FlatList, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useContext } from 'react'
 import { ProductContext } from '@/app/context/ProductContext'
 import Product from '@/components/Product';
@@ -60,6 +60,7 @@ const cart = () => {
         </View>
         </View>
         </ScrollView>
+        <StatusBar barStyle='dark-content'></StatusBar>
     </SafeAreaView>
   )
 }

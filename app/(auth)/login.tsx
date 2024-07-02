@@ -1,33 +1,33 @@
 import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Link, router } from 'expo-router';
-import CustomButton from '@/components/CustomButton';
 import { StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign } from '@expo/vector-icons';
+import CustomButton from '@/components/CustomButton';
+import { router } from 'expo-router';
 
 const userSchema = Yup.object({
-  name: Yup.string().required('This field is required'),
   email: Yup.string().email('Email is not valid').required('This field is required'),
-  password: Yup.string().min(7).required('This field is required'),
+  password: Yup.string().min(7, 'Password must be at least 7 characters long').required('This field is required'),
 });
 
-const Signup =  () => {
+const Login = () => {
   const initialValues = { email: '', password: '' };
-  const handleSubmit = async (values: any, { setSubmitting, resetForm }: any) => {
+  const [passwordError, setpasswordError] = useState("");
+  const handleSubmit = async (values: any) => {
     try{
-        const value = await AsyncStorage.getItem(JSON.stringify(values.email));
-        if(value){
-            console.log(value);
+        const getEmail = await AsyncStorage.getItem(values.email);
+        if(getEmail){
+            if(JSON.parse(getEmail).password === values.password){
+                router.push('/(tabs)/home')
+            }
+            else{
+                setpasswordError("Incorrect password")
+            }
         }
-        else{
-            console.log("not found")
-        }
-        setSubmitting(false);
-        resetForm();
     }
     catch(e){
         console.log(e)
@@ -38,16 +38,15 @@ const Signup =  () => {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.container}>
-          <View className='flex flex-row justify-center items-center gap-2 -mt-10'>
-             <Text className='text-2xl font-semibold'>Login</Text>
-             <AntDesign name="login" size={24} color="black" />
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+            <Text style={{ fontSize: 24, fontWeight: '600' }}>Login</Text>
+            <AntDesign name="login" size={24} color="black" style={{ marginLeft: 8 }} />
           </View>
           <Formik initialValues={initialValues} validationSchema={userSchema} onSubmit={handleSubmit}>
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
               <View>
                 <Text style={styles.label}>Email</Text>
                 <TextInput
-                  className='w-72'
                   style={styles.input}
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
@@ -65,20 +64,21 @@ const Signup =  () => {
                   secureTextEntry
                 />
                 {touched.password && errors.password && <Text style={styles.error}>{errors.password}</Text>}
-                <CustomButton title={'Submit'} handlePress={()=>router.push('/(tabs)/home')} containerStyles={'bg-black'} textStyles={'text-white'}>
-                    <Text className='text-white text-center text-base font-semibold'>Submit</Text>
+                {passwordError && <Text style={styles.error}>{passwordError}</Text>}
+                <CustomButton handlePress={handleSubmit} title={''} containerStyles={''} textStyles={''} >
+                  <Text style={styles.buttonText}>Submit</Text>
                 </CustomButton>
               </View>
             )}
           </Formik>
         </View>
       </ScrollView>
-      <StatusBar backgroundColor='black'></StatusBar>
+      <StatusBar backgroundColor="black" />
     </SafeAreaView>
   );
 };
 
-export default Signup;
+export default Login;
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -92,10 +92,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: -12,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 20
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 20,
   },
   label: {
     fontSize: 16,
@@ -107,7 +106,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 8,
     marginBottom: 16,
-    fontSize: 16
+    fontSize: 16,
+    width: 250,
   },
   error: {
     fontSize: 14,
@@ -121,7 +121,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
+    backgroundColor: 'black',
     color: '#fff',
+    padding: 10,
+    paddingRight: 20,
+    paddingLeft: 20,
     fontSize: 16,
+    alignSelf: 'center'
   },
 });

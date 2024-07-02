@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import { ProductProvider } from '../../context/ProductContext'
+import { StatusBar } from "react-native";
 
 export default function HomeLayout(){
     return (

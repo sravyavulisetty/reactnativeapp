@@ -1,4 +1,4 @@
-import { Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Button, FlatList, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState, useContext } from 'react'
 import Product from '@/components/Product';
 import { router } from 'expo-router';
@@ -92,6 +92,7 @@ const Electronics = () => {
             numColumns={2}
             columnWrapperStyle={styles.row}
           />
+          <StatusBar barStyle='dark-content'></StatusBar>
         
     </SafeAreaView>
   )

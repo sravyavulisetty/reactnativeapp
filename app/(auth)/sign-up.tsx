@@ -1,31 +1,40 @@
-import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import CustomButton from '@/components/CustomButton';
 import { StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 const userSchema = Yup.object({
   name: Yup.string().required('This field is required'),
   email: Yup.string().email('Email is not valid').required('This field is required'),
-  password: Yup.string().min(7).required('This field is required'),
+  password: Yup.string().required('This field is required'),
 });
 
 const Signup =  () => {
   const initialValues = { name: '', email: '', password: '' };
   const handleSubmit = async (values: any, { setSubmitting, resetForm }: any) => {
     try{
-        await AsyncStorage.setItem(JSON.stringify(values.email), JSON.stringify(values));
+        await AsyncStorage.setItem(values.email, JSON.stringify(values));
         setSubmitting(false);
         resetForm();
     }
     catch(e){
         console.log(e)
+    }
+    router.push('/(tabs)/home')
+  };
+  const handleRetrieveData = async () => {
+    try {
+      const keys = await AsyncStorage.getItem('Elon@gmail.com');
+      // const result = await AsyncStorage.multiGet(keys);
+      console.log(JSON.stringify(keys));
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -69,19 +78,19 @@ const Signup =  () => {
                   secureTextEntry
                 />
                 {touched.password && errors.password && <Text style={styles.error}>{errors.password}</Text>}
-                <CustomButton title={'Submit'} handlePress={handleSubmit} containerStyles={'bg-black'} textStyles={'text-white'}>
+                <CustomButton title={''} handlePress={handleSubmit} containerStyles={'bg-black'} textStyles={'text-white'}>
                   <Text className='text-white text-base text-center font-semibold'>Submit</Text>
                 </CustomButton>
-                {/* <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={isSubmitting}>
-                  <Text style={styles.buttonText}>Submit</Text>
-                </TouchableOpacity> */}
+                {/* <CustomButton title={''} handlePress={handleRetrieveData} containerStyles={'bg-black mt-2'} textStyles={'text-white'}>
+                  <Text className='text-white text-base text-center font-semibold'>retrieve data</Text>
+                </CustomButton> */}
               </View>
             )}
           </Formik>
           <Text>Already have an account, <Link href='/login' className='text-blue-800'>Login </Link>here</Text>
         </View>
       </ScrollView>
-      <StatusBar backgroundColor='black'></StatusBar>
+      <StatusBar barStyle='dark-content'></StatusBar>
     </SafeAreaView>
   );
 };

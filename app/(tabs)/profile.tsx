@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 const Profile = () => {
   return (
-    <View>
-      <Text>Profile</Text>
-    </View>
+    <SafeAreaView className='flex-1 bg-white'>
+      <Text className='p-10 font-semibold'>Profile</Text>
+    </SafeAreaView>
   )
 }
 
