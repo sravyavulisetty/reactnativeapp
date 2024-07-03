@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik } from 'formik';
@@ -25,7 +25,7 @@ const Login = () => {
                 router.push('/(tabs)/home')
             }
             else{
-                setpasswordError("Incorrect password")
+                setpasswordError("Incorrect password. Please try again")
             }
         }
     }

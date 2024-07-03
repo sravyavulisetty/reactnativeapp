@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "reactnativeapp",
+    "name": "stylique",
     "slug": "reactnativeapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/gift.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {

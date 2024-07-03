@@ -38,7 +38,7 @@ const Home = () => {
         <View className='flex flex-row justify-between items-center mx-2'>
            <View className='flex flex-row gap-2'>
               <Image source={require('../../../assets/images/gift.png')} resizeMode='contain' className='w-6 h-6'></Image>
-              <Text className='text-xl font-semibold'>Shopify</Text>
+              <Text className='text-xl font-semibold'>Stylique</Text>
             </View>
             <View style={styles.container}>
                 <AntDesign name="shoppingcart" size={35} color="black" onPress={() => router.push('/(tabs)/home/cart')} />
